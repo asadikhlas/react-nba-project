@@ -1,0 +1,7 @@
+npm install react-router-dom
+
+npm install react-fontawesome
+
+npm install react-simple-sidenav
+
+npm install react-slick
