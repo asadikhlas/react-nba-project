@@ -5,3 +5,5 @@ npm install react-fontawesome
 npm install react-simple-sidenav
 
 npm install react-slick
+
+json-server --watch db.json --port 3004
