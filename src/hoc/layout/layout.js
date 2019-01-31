@@ -22,7 +22,7 @@ class Layout extends Component {
           onOpenNav={() => this.toggleSidenav(true)}
         />
         {this.props.children}
-        <Footer/>
+        <Footer />
       </div>
     );
   }

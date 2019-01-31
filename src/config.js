@@ -1,5 +1,3 @@
-const CURRENT_YEAR = (new Date()).getFullYear()
+const CURRENT_YEAR = new Date().getFullYear();
 
-export {
-    CURRENT_YEAR
-}
+export { CURRENT_YEAR };
