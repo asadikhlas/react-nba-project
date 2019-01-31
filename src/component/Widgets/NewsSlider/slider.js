@@ -18,7 +18,7 @@ import SliderTemplates from './slider_templates';
   render() {
     return (
       <div>
-        <SliderTemplates data={this.state.news}/>
+        <SliderTemplates data={this.state.news} type="featured"/>
       </div>
     )
   }
