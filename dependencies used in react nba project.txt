@@ -9,3 +9,5 @@ npm install react-slick
 json-server --watch db.json --port 3004
 
 npm install axios --save
+
+npm install react-transition-group --save
