@@ -1,7 +1,7 @@
 import React from "react";
 import Slick from "react-slick";
-import styles from './slider.module.css';
-import { Link } from 'react-router-dom';
+import styles from "./slider.module.css";
+import { Link } from "react-router-dom";
 const SliderTemplate = props => {
   let template = null;
   const settings = {
@@ -10,7 +10,8 @@ const SliderTemplate = props => {
     arrows: false,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    ...props.settings
   };
 
   switch (props.type) {
@@ -24,12 +25,11 @@ const SliderTemplate = props => {
                 style={{
                   background: `url(../images/articles/${item.image})`
                 }}
-              /><div>
-                  <Link to={`/articles/${item.id}`}>
-                  <div className={styles.featured_caption}>
-                        {item.title}
-                  </div>
-                  </Link>
+              />
+              <div>
+                <Link to={`/articles/${item.id}`}>
+                  <div className={styles.featured_caption}>{item.title}</div>
+                </Link>
               </div>
             </div>
           </div>
