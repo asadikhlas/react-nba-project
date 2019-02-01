@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { URL } from "../../../config";
 import styles from './newsList.module.css';
+import Buttons from '../Buttons/buttons';
 
 class NewsList extends Component {
   state = {
@@ -70,7 +71,7 @@ loadMore = () => {
       >
       { this.renderNews( this.props.type)}
       </TransitionGroup>
-      <Button 
+      <Buttons 
       type="loadmore"
       loadMore={()=>this.loadMore()}
       cta="Load More News"
