@@ -36,7 +36,15 @@ loadMore = () => {
     switch(type){
       case('card'):
       template= this.state.items.map((item,i)=>(
-        <div>
+        <CSSTransition
+        classNames={{
+          enter:styles.newslist_wrapper,
+          enterActive:styles.newslist_wrapper_enter
+        }}
+        timeout={500}
+        key={i}
+        >
+         <div>
           <div className={styles.newslist_item}>
           <Link to={`/articles/${item.id}`}>
             <h2>{item.title}</h2>
@@ -44,6 +52,8 @@ loadMore = () => {
 
           </div>
         </div>
+        </CSSTransition>
+       
       ))
       break;
       default:
@@ -52,12 +62,20 @@ loadMore = () => {
     return template;
   }
   render() {
-    console.log(this.state.items);
-    return (<div>
+    return (
+    <div>
+      <TransitionGroup
+      component="div"
+      className="list"
+      >
       { this.renderNews( this.props.type)}
-      <div onClick={()=>this.loadMore()}>
-        Load More
-      </div>
+      </TransitionGroup>
+      <Button 
+      type="loadmore"
+      loadMore={()=>this.loadMore()}
+      cta="Load More News"
+      />
+      
     </div>
     )
   }
