@@ -1,10 +1,6 @@
-import React from 'react'
+import React from "react";
 
- const body = (props) => {
-  return (
-    <div>
-      body
-    </div>
-  )
-}
+const body = props => {
+  return <div>body</div>;
+};
 export default body;
