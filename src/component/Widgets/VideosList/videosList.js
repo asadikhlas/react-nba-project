@@ -3,7 +3,7 @@ import styles from "./videosList.module.css";
 import axios from "axios";
 import { URL } from "../../../config";
 import Button from "../Buttons/buttons";
-import VideosListTemplate from './videolistTemplates';
+import VideosListTemplate from "./videolistTemplates";
 
 class VideosList extends Component {
   state = {
@@ -14,8 +14,8 @@ class VideosList extends Component {
     amount: this.props.amount
   };
 
-  componentWillMount(){
-      this.request(this.state.start, this.state.end)
+  componentWillMount() {
+    this.request(this.state.start, this.state.end);
   }
   request = (start, end) => {
     if (this.state.teams.length < 1) {
@@ -34,23 +34,26 @@ class VideosList extends Component {
     });
   };
 
-
   renderVideos = () => {
-      let template = null;
-      switch(this.props.type){
-          case('card'):
-          template = <VideosListTemplate data={this.state.videos} teams={this.state.teams}/>
-          break;
-        default:
-        template = null
-      }
-      return template;
-  }
-
+    let template = null;
+    switch (this.props.type) {
+      case "card":
+        template = (
+          <VideosListTemplate
+            data={this.state.videos}
+            teams={this.state.teams}
+          />
+        );
+        break;
+      default:
+        template = null;
+    }
+    return template;
+  };
 
   loadMore = () => {
-      let end = this.state.end + this.state.amount;
-      this.request(this.state.end, end)
+    let end = this.state.end + this.state.amount;
+    this.request(this.state.end, end);
   };
   renderButton = () => {
     return this.props.loadmore ? (
@@ -74,7 +77,7 @@ class VideosList extends Component {
     return (
       <div className={styles.VideosList_wrapper}>
         {this.renderTitle()}
-        {this.renderVideos() }
+        {this.renderVideos()}
         {this.renderButton()}
       </div>
     );
