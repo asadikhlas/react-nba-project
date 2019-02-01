@@ -1,21 +1,17 @@
-import React from 'react';
-import styles from '../articles.module.css';
+import React from "react";
+import styles from "../articles.module.css";
 
-const postData = (props) => (
-<div  className={styles.articlePostData}>
+const postData = props => (
+  <div className={styles.articlePostData}>
     <div>
-        Date:
-        <span>
-            {props.data.date}
-        </span>
+      Date:
+      <span>{props.data.date}</span>
     </div>
     <div>
-        Author:
-        <span>
-            {props.data.author}
-        </span>
+      Author:
+      <span>{props.data.author}</span>
     </div>
-</div>    
-)
+  </div>
+);
 
 export default postData;
