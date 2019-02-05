@@ -5,7 +5,7 @@ import Layout from "./hoc/layout/layout";
 import NewsArticles from "./component/Articles/News/Post/index";
 import VideoArticle from "./component/Articles/Videos/Video/index";
 import NewsMain from "./component/Articles/News/Main/index";
-import VideoMain from './component/Articles/Videos/Main/index';
+import VideoMain from "./component/Articles/Videos/Main/index";
 class Routes extends Component {
   render() {
     return (
