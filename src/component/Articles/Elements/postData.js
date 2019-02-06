@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../articles.module.css";
 
+
 const postData = props => (
   <div className={styles.articlePostData}>
     <div>
