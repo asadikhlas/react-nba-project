@@ -1,7 +1,7 @@
 import React from "react";
 import NewsSlider from "../../../Widgets/NewsSlider/slider";
 import NewsList from "../../../Widgets/NewsList/newsList";
-
+          
 const NewsMain = () => (
   <div>
     <NewsSlider
