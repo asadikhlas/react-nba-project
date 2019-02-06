@@ -5,7 +5,7 @@ import NewsList from "../../../Widgets/NewsList/newsList";
 const NewsMain = () => (
   <div>
     <NewsSlider
-      type="featured"
+      type="featured"   
       settings={{ dots: false }}
       start={0}    
       amount={3}
