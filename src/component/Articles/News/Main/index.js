@@ -6,7 +6,7 @@ const NewsMain = () => (
   <div>
     <NewsSlider
       type="featured"   
-      settings={{ dots: false }}
+      settings={{ dots: false }}   
       start={0}    
       amount={3}
     />
