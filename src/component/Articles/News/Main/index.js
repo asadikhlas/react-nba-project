@@ -12,6 +12,6 @@ const NewsMain = () => (
     />
     <NewsList type="cardMain" loadMore={true} start={3} amount={3} />        
   </div>
-);
+);   
 
 export default NewsMain;
