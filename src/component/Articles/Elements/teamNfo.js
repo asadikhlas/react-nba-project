@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../articles.module.css";
 
+
 const teamNfo = props => (
   <div className={styles.articleTeamHeader}>
     <div
