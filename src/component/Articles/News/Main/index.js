@@ -10,7 +10,7 @@ const NewsMain = () => (
       start={0}
       amount={3}
     />
-    <NewsList type="cardMain" loadMore={true} start={3} amount={3} />
+    <NewsList type="cardMain" loadMore={true} start={3} amount={3} />  
   </div>
 );   
 
