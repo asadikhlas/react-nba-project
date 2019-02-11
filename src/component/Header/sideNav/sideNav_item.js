@@ -46,7 +46,7 @@ const SideNavItem = () => {
             {item.text}
           </Link>
         </div>
-      );   
+      );  
     });
   };
 
