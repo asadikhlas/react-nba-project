@@ -48,7 +48,7 @@ const SideNavItem = () => {
         </div>
       );
     });
-  };    commit
+  }; 
 
   return <div>{showItems()}</div>;
 };
