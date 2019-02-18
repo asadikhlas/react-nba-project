@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Link } from "react-router-dom";
-import { firebaseTeams, firebaseArticles, firebaseLooper } from '../../../firebase';
+import {
+  firebaseTeams,
+  firebaseArticles,
+  firebaseLooper
+} from "../../../firebase";
 import styles from "./newsList.module.css";
 import Buttons from "../Buttons/buttons";
 import CardInfo from "../../Widgets/CardInfo/cardInfo";
@@ -21,31 +25,34 @@ class NewsList extends Component {
 
   request = (start, end) => {
     if (this.state.teams.length < 1) {
-      firebaseTeams.once('value')
-      .then((snapshot)=>{
+      firebaseTeams.once("value").then(snapshot => {
         const teams = firebaseLooper(snapshot);
         this.setState({
           teams
-        })
-      })
+        });
+      });
       // axios.get(`${URL}/teams`).then(response => {
       //   this.setState({
       //     teams: response.data
       //   });
       // });
     }
-    firebaseArticles.orderByChild('id').startAt(start).endAt(end).once('value')
-    .then((snapshot)=>{
-      const articles = firebaseLooper(snapshot);
-      this.setState({
-        items: [...this.state.items, ...articles],
-            start,
-            end
+    firebaseArticles
+      .orderByChild("id")
+      .startAt(start)
+      .endAt(end)
+      .once("value")
+      .then(snapshot => {
+        const articles = firebaseLooper(snapshot);
+        this.setState({
+          items: [...this.state.items, ...articles],
+          start,
+          end
+        });
       })
-    })
-    .catch(e=>{
-      console.log(e)
-    })
+      .catch(e => {
+        console.log(e);
+      });
 
     // axios.get(`${URL}/articles?_start=${start}&_end=${end}`).then(response => {
     //   this.setState({
