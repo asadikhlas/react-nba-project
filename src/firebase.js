@@ -1,6 +1,5 @@
 import * as firebase from 'firebase';
-
-const config = {
+  const config = {
     apiKey: "AIzaSyCaN3dJNk_PwX3vrTRGjcq7345MNEDWlko",
     authDomain: "nba-full-f431a.firebaseapp.com",
     databaseURL: "https://nba-full-f431a.firebaseio.com",
