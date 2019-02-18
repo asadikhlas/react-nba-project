@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import { firebaseDB, firebaseLooper, firebaseTeams } from '../../../../firebase';
+import {
+  firebaseDB,
+  firebaseLooper,
+  firebaseTeams
+} from "../../../../firebase";
 import styles from "../../articles.module.css";
 import Header from "./header";
 
@@ -10,21 +14,24 @@ class NewsArticles extends Component {
   };
 
   componentWillMount() {
-    firebaseDB.ref(`articles/${this.props.match.params.id}`).once('value')
-    .then((snapshot)=>{
-      let article = snapshot.val();
+    firebaseDB
+      .ref(`articles/${this.props.match.params.id}`)
+      .once("value")
+      .then(snapshot => {
+        let article = snapshot.val();
 
-      firebaseTeams.orderByChild("teamId").equalTo(article.team).once('value')
-      .then((snapshot)=>{
-        const team = firebaseLooper(snapshot);
-        this.setState({
-          article,
-          team
-        })
-      })
-    })
-
-
+        firebaseTeams
+          .orderByChild("teamId")
+          .equalTo(article.team)
+          .once("value")
+          .then(snapshot => {
+            const team = firebaseLooper(snapshot);
+            this.setState({
+              article,
+              team
+            });
+          });
+      });
 
     // axios
     //   .get(`${URL}/articles?id=${this.props.match.params.id}`)
