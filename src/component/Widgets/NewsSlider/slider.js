@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {firebaseArticles,firebaseLooper} from '../../../firebase';
+import { firebaseArticles, firebaseLooper } from "../../../firebase";
 import SliderTemplates from "./slider_templates";
 
 class NewsSlider extends Component {
@@ -7,15 +7,15 @@ class NewsSlider extends Component {
     news: []
   };
   componentWillMount() {
-    firebaseArticles.limitToFirst(3).once('value')
-    .then((snapshot)=>{
-      const news = firebaseLooper(snapshot)
-      this.setState({
-        news
-      })
-    })
-
-
+    firebaseArticles
+      .limitToFirst(3)
+      .once("value")
+      .then(snapshot => {
+        const news = firebaseLooper(snapshot);
+        this.setState({
+          news
+        });
+      });
 
     // axios
     //   .get(
