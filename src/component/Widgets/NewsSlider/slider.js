@@ -26,7 +26,7 @@ class NewsSlider extends Component {
     //       news: response.data
     //     });
     //   });
-  }   
+  }
 
   render() {
     return (
