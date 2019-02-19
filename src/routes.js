@@ -9,6 +9,7 @@ import VideoMain from "./component/Articles/Videos/Main/index";
 import SignIn from './component/signIn/signin';
 class Routes extends Component {
   render() {
+    console.log(this.props)
     return (
       <Layout>
         <Switch>
