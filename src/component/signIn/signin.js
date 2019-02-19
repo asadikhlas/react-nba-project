@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styles from "./signin.module.css";
-import {firebase} from '../../firebase';
+import { firebase } from "../../firebase";
 import FormField from "../../component/Widgets/formFields/formFields";
 
 class SignIn extends Component {
@@ -51,10 +51,10 @@ class SignIn extends Component {
       ...newFormdata[element.id]
     };
     newElement.value = element.event.target.value;
-    if(element.blur){
-        let validData = this.validate(newElement)
-        newElement.valid = validData[0];
-        newElement.validationMessage = validData[1];
+    if (element.blur) {
+      let validData = this.validate(newElement);
+      newElement.valid = validData[0];
+      newElement.validationMessage = validData[1];
     }
     newElement.touched = element.blur;
     newFormdata[element.id] = newElement;
@@ -64,101 +64,108 @@ class SignIn extends Component {
     });
   };
 
-  validate = (element) => {
-      let error = [true,''];
+  validate = element => {
+    let error = [true, ""];
 
-      if(element.validation.email){
-        const valid = /\S+@\S+\.\S+/.test(element.value)
-        const message = `${!valid ? 'Must be a valid email':''}`;
-        error = !valid ? [valid,message] : error
+    if (element.validation.email) {
+      const valid = /\S+@\S+\.\S+/.test(element.value);
+      const message = `${!valid ? "Must be a valid email" : ""}`;
+      error = !valid ? [valid, message] : error;
+    }
+
+    if (element.validation.password) {
+      const valid = element.value.length >= 5;
+      const message = `${!valid ? "Must be greater than 5" : ""}`;
+      error = !valid ? [valid, message] : error;
+    }
+
+    if (element.validation.required) {
+      const valid = element.value.trim() !== "";
+      const message = `${!valid ? "This field is required" : ""}`;
+      error = !valid ? [valid, message] : error;
+    }
+    return error;
+  };
+  submitForm = (event, type) => {
+    event.preventDefault();
+    if (type !== null) {
+      let dataToSubmit = {};
+      let formIsValid = true;
+
+      for (let key in this.state.formdata) {
+        dataToSubmit[key] = this.state.formdata[key].value;
       }
-
-
-      if(element.validation.password){
-        const valid = element.value.length >= 5;
-        const message = `${!valid ? 'Must be greater than 5':''}`;
-        error = !valid ? [valid,message] : error
+      for (let key in this.state.formdata) {
+        formIsValid = this.state.formdata[key].valid && formIsValid;
       }
-
-
-      if(element.validation.required){
-        const valid = element.value.trim() !=='';
-        const message = `${!valid ? 'This field is required':''}`;
-        error = !valid ? [valid,message] : error
-      }
-      return error;
-  }
-  submitForm = (event,type) => {
-      event.preventDefault();
-      if(type !== null){
-          let dataToSubmit = {};
-          let formIsValid = true;
-
-          for(let key in this.state.formdata){
-              dataToSubmit[key] = this.state.formdata[key].value;
-
-          }
-          for(let key in this.state.formdata){
-            formIsValid = this.state.formdata[key].valid && formIsValid;
-          }
-          if(formIsValid){
-            this.setState({
-                loading:true,
-                registerError:''
+      if (formIsValid) {
+        this.setState({
+          loading: true,
+          registerError: ""
+        });
+        if (type) {
+          firebase
+            .auth()
+            .signInWithEmailAndPassword(
+              dataToSubmit.email,
+              dataToSubmit.password
+            )
+            .then(() => {
+              this.props.history.push("/");
             })
-            if(type){
-                firebase.auth()
-                .signInWithEmailAndPassword(
-                    dataToSubmit.email,
-                    dataToSubmit.password
-                ).then(()=>{
-                    this.props.history.push('/')
-                }).catch(error=>{
-                    this.setState({
-                        loading:false,
-                        registerError:error.message
-                    })
-                })
-            }else{
-                firebase.auth()
-                .createUserWithEmailAndPassword(
-                    dataToSubmit.email,
-                    dataToSubmit.password
-                ).then(()=>{
-                    this.props.history.push('/')
-                }).catch(error=>{
-                    this.setState({
-                        loading:false,
-                        registerError:error.message
-                    })
-                })
-            }
-          }
-
+            .catch(error => {
+              this.setState({
+                loading: false,
+                registerError: error.message
+              });
+            });
+        } else {
+          firebase
+            .auth()
+            .createUserWithEmailAndPassword(
+              dataToSubmit.email,
+              dataToSubmit.password
+            )
+            .then(() => {
+              this.props.history.push("/");
+            })
+            .catch(error => {
+              this.setState({
+                loading: false,
+                registerError: error.message
+              });
+            });
+        }
       }
-  }
+    }
+  };
 
-  submitButton = () => (
-      this.state.loading ?
-      'loading...'
-      :
+  submitButton = () =>
+    this.state.loading ? (
+      "loading..."
+    ) : (
       <div>
-          <button onClick={(event)=>this.submitForm(event,false)}> Register now </button>
-          <button onClick={(event)=>this.submitForm(event,false)}> Log in  </button>
+        <button onClick={event => this.submitForm(event, false)}>
+          {" "}
+          Register now{" "}
+        </button>
+        <button onClick={event => this.submitForm(event, false)}>
+          {" "}
+          Log in{" "}
+        </button>
       </div>
-  )
-    showError = () => (
-        this.state.registerError !== '' ? 
-        <div className={styles.error}>{this.state.registerError}</div>
-        :
-        ''
-    )
-
+    );
+  showError = () =>
+    this.state.registerError !== "" ? (
+      <div className={styles.error}>{this.state.registerError}</div>
+    ) : (
+      ""
+    );
 
   render() {
     return (
       <div className={styles.logContainer}>
-        <form onSubmit={(event)=>this.submitForm(event,null)}>
+        <form onSubmit={event => this.submitForm(event, null)}>
           <h2>Register/Login</h2>
           <FormField
             id={"email"}
@@ -171,7 +178,7 @@ class SignIn extends Component {
             change={element => this.updateForm(element)}
           />
           {this.submitButton()}
-          { this.showError()}
+          {this.showError()}
         </form>
       </div>
     );
