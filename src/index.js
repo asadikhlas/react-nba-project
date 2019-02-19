@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import Routes from "./routes";
-import {firebase} from './firebase';
+import { firebase } from "./firebase";
 
-const App = (props) => {
+const App = props => {
   return (
     <BrowserRouter>
       <Routes {...props} />
@@ -12,8 +12,6 @@ const App = (props) => {
   );
 };
 
-firebase.auth().onAuthStateChanged((user)=>{
+firebase.auth().onAuthStateChanged(user => {
   ReactDOM.render(<App user={user} />, document.getElementById("root"));
-})
-
-
+});
