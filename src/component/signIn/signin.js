@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "./signin.module.css";
+import {firebase} from '../../firebase';
 import FormField from "../../component/Widgets/formFields/formFields";
 
 class SignIn extends Component {
@@ -106,16 +107,36 @@ class SignIn extends Component {
                 registerError:''
             })
             if(type){
-                console.log('LOG IN')
+                firebase.auth()
+                .signInWithEmailAndPassword(
+                    dataToSubmit.email,
+                    dataToSubmit.password
+                ).then(()=>{
+                    this.props.history.push('/')
+                }).catch(error=>{
+                    this.setState({
+                        loading:false,
+                        registerError:error.message
+                    })
+                })
             }else{
-                console.log('REGISTER')
+                firebase.auth()
+                .createUserWithEmailAndPassword(
+                    dataToSubmit.email,
+                    dataToSubmit.password
+                ).then(()=>{
+                    this.props.history.push('/')
+                }).catch(error=>{
+                    this.setState({
+                        loading:false,
+                        registerError:error.message
+                    })
+                })
             }
           }
 
       }
   }
-
-
 
   submitButton = () => (
       this.state.loading ?
@@ -126,6 +147,13 @@ class SignIn extends Component {
           <button onClick={(event)=>this.submitForm(event,false)}> Log in  </button>
       </div>
   )
+    showError = () => (
+        this.state.registerError !== '' ? 
+        <div className={styles.error}>{this.state.registerError}</div>
+        :
+        ''
+    )
+
 
   render() {
     return (
@@ -143,6 +171,7 @@ class SignIn extends Component {
             change={element => this.updateForm(element)}
           />
           {this.submitButton()}
+          { this.showError()}
         </form>
       </div>
     );
