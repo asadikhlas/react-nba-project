@@ -72,9 +72,28 @@ import styles from './dashboard.module.css';
       };
 
 
-     submitForm = () => {
+     submitForm = (event) => {
         event.preventDefault();
+        let dataToSubmit = {};
+        let formIsValid = true;
+  
+        for (let key in this.state.formdata) {
+          dataToSubmit[key] = this.state.formdata[key].value;
+        }
+        for (let key in this.state.formdata) {
+          formIsValid = this.state.formdata[key].valid && formIsValid;
+        }
+        if(formIsValid){
+            console.log('submit post')
+        }else{
+            this.setState({
+                postError:'something went wrong'
+            })
+        }
+
      }
+
+
      submitButton = () =>
      this.state.loading ? (
        "loading..."
@@ -85,6 +104,12 @@ import styles from './dashboard.module.css';
            Add Post{" "}
          </button>
        </div>
+     );
+     showError = () =>
+     this.state.postError !== "" ? (
+       <div className={styles.error}>{this.state.registerError}</div>
+     ) : (
+       ""
      );
 
      render(){
@@ -97,7 +122,13 @@ import styles from './dashboard.module.css';
             formdata={this.state.formdata.author}
             change={element => this.updateForm(element)}
           />
+             <FormField
+            id={"title"}
+            formdata={this.state.formdata.title}
+            change={element => this.updateForm(element)}
+          />
           {this.submitButton()}
+          {this.showError()}
                  </form>
              </div>
          )
