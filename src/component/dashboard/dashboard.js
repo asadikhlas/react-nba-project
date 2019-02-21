@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import FormField from "../Widgets/formFields/formFields";
 import styles from "./dashboard.module.css";
+import {firebaseTeams} from '../../firebase';
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
@@ -40,18 +41,43 @@ class Dashboard extends Component {
         valid: false,
         touched: false,
         validationMessage: ""
+      },
+      body:{
+        element:"textEditor",
+        value:'',
+        valid:true
+      },
+      teams:{
+        element: "select",
+        value: "",
+        config: {
+          name: "teams_input",
+          options:[]
+        },
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false,
+        validationMessage: ""
       }
     }
   };
 
-  updateForm = element => {
+  updateForm = (element,content = '') => {
     const newFormdata = {
       ...this.state.formdata
     };
     const newElement = {
       ...newFormdata[element.id]
     };
-    newElement.value = element.event.target.value;
+    if(content === ''){
+      newElement.value = element.event.target.value;
+    }else{
+      newElement.value = content
+    }
+
+    
     if (element.blur) {
       let validData = this.validate(newElement);
       newElement.valid = validData[0];
@@ -115,7 +141,7 @@ class Dashboard extends Component {
     let contentState = editorState.getCurrentContent();
     let rawState = convertToRaw(contentState);
     let html = stateToHTML(contentState);
-    console.log(html);
+    this.updateForm({id:'body'},html)
     this.setState({
       editorState
     });
