@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  firebase,
   firebaseDB,
   firebaseLooper,
   firebaseTeams
@@ -10,7 +11,8 @@ import Header from "./header";
 class NewsArticles extends Component {
   state = {
     article: [],
-    team: []
+    team: [],
+    imageURL:''
   };
 
   componentWillMount() {
@@ -30,6 +32,7 @@ class NewsArticles extends Component {
               article,
               team
             });
+            this.getImageURL(article.image)
           });
       });
 
@@ -44,6 +47,16 @@ class NewsArticles extends Component {
     //       });
     //     });
     //   });
+  }
+
+  getImageURL = (filename) => {
+    firebase.storage().ref('images')
+    .child(filename).getDownloadURL()
+    .then(url=>{
+      this.setState({
+        imageURL: url
+      })
+    })
   }
   render() {
     const article = this.state.article;
@@ -60,10 +73,15 @@ class NewsArticles extends Component {
           <div
             className={styles.articleImage}
             style={{
-              background: `url('/images/articles/${article.image}')`
+              background: `url('${this.state.imageURL}')`
             }}
           />
-          <div className={styles.articleText}>{article.body}</div>
+          <div className={styles.articleText}
+          dangerouslySetInnerHTML={{
+            __html:article.body
+          }}
+          
+          ></div>
         </div>
       </div>
     );
