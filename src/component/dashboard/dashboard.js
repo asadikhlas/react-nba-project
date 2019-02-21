@@ -168,6 +168,11 @@ class Dashboard extends Component {
             editorClassName="myEditor-editor"
             onEditorStateChange={this.onEditorStateChange}
           />
+          <FormField
+            id={"teams"}
+            formdata={this.state.formdata.teams}
+            change={element => this.updateForm(element)}
+          />
           {this.submitButton()}
           {this.showError()}
         </form>
