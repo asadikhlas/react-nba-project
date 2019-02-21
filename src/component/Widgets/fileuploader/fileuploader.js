@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {firebase} from '../../../firebase';
 import FileUploader from 'react-firebase-file-uploader';
-import { url } from 'inspector';
 
 class Uploader extends Component {
     state = {
@@ -50,9 +49,14 @@ class Uploader extends Component {
                onUploadError={this.handleUploadError}
                onUploadSuccess={this.handleUploadSuccess}
                onProgress={this.handleProgress}
-
-               
                />
+               {this.state.isUploading ? 
+               <p>Progress:{this.state.progress}</p>
+                :
+                null
+                 }
+                 {this.state.fileURL ? '' : null}
+
             </div>
         )
     }
