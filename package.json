@@ -4,10 +4,13 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "draft-js": "^0.10.4",
+    "draft-js-export-html": "^1.2.0",
     "firebase": "^5.8.3",
     "moment": "^2.24.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-draft-wysiwyg": "^1.12.1",
     "react-fontawesome": "^1.6.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.3",

@@ -11,3 +11,9 @@ json-server --watch db.json --port 3004
 npm install axios --save
 
 npm install react-transition-group --save
+
+npm install react-draft-wysiwyg@1.12.1 --save
+
+npm install draft-js@0.10.4 --save
+
+npm install draft-js-export-html@1.2.0 --save

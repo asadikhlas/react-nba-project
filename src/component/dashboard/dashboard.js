@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import FormField from "../Widgets/formFields/formFields";
 import styles from "./dashboard.module.css";
+import { Editor } from "react-draft-wysiwyg";
+import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
+import { stateToHTML } from "draft-js-export-html";
+
 class Dashboard extends Component {
   state = {
+    editorState: EditorState.createEmpty(),
     postError: "",
     loading: false,
     formdata: {
@@ -106,6 +111,16 @@ class Dashboard extends Component {
       ""
     );
 
+  onEditorStateChange = editorState => {
+    let contentState = editorState.getCurrentContent();
+    let rawState = convertToRaw(contentState);
+    let html = stateToHTML(contentState);
+    console.log(html);
+    this.setState({
+      editorState
+    });
+  };
+
   render() {
     return (
       <div className={styles.postContainer}>
@@ -120,6 +135,12 @@ class Dashboard extends Component {
             id={"title"}
             formdata={this.state.formdata.title}
             change={element => this.updateForm(element)}
+          />
+          <Editor
+            editorState={this.state.editorState}
+            wrapperClassName="myEditor-wrapper"
+            editorClassName="myEditor-editor"
+            onEditorStateChange={this.onEditorStateChange}
           />
           {this.submitButton()}
           {this.showError()}
