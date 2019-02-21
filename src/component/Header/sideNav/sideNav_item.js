@@ -5,7 +5,6 @@ import { Link, withRouter } from "react-router-dom";
 import FontAwesome from "react-fontawesome";
 
 const SideNavItem = props => {
-  console.log(props);
   const items = [
     {
       type: style.option,

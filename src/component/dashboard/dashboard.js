@@ -152,7 +152,7 @@ class Dashboard extends Component {
         });
         dataToSubmit['date'] = firebase.database.ServerValue.TIMESTAMP
         dataToSubmit['id'] = articleId + 1;
-        dataToSubmit['team'] = parseInt(dataToSubmit['team']);
+        dataToSubmit['team'] = parseInt(dataToSubmit['team'],10);
 
         firebaseArticles.push(dataToSubmit)
         .then( article => {
