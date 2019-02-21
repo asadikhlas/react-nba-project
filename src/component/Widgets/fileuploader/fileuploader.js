@@ -23,7 +23,6 @@ class Uploader extends Component {
         })
     }
     handleUploadSuccess = (filename) => {
-        console.log(filename)
         this.setState({
             name:filename,
             progress:100,
@@ -34,6 +33,7 @@ class Uploader extends Component {
         .then(url => {
             this.setState({fileURL:url})
         })
+        this.props.filename(filename)
     }
    
 
@@ -55,7 +55,16 @@ class Uploader extends Component {
                 :
                 null
                  }
-                 {this.state.fileURL ? '' : null}
+                 {this.state.fileURL ? 
+                 <img
+                 style={{
+                     width:'300px'
+                 }}
+                 src={this.state.fileURL}
+                 />
+                 
+                 
+                 : null}
 
             </div>
         )
