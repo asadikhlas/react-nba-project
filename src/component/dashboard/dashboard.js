@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import FormField from "../Widgets/formFields/formFields";
 import styles from "./dashboard.module.css";
+import Uploader from '../Widgets/fileuploader/fileuploader';
 import { firebaseTeams } from "../../firebase";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
@@ -173,6 +174,7 @@ class Dashboard extends Component {
       <div className={styles.postContainer}>
         <form onSubmit={this.submitForm}>
           <h2>Add Post</h2>
+          <Uploader/>
           <FormField
             id={"author"}
             formdata={this.state.formdata.author}
