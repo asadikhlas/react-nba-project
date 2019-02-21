@@ -64,6 +64,29 @@ class Dashboard extends Component {
     }
   };
 
+  componentDidMount(){
+    this.loadTeams()
+  }
+  loadTeams = () => {
+    firebaseTeams.once('value')
+    .then((snapshot)=>{
+      let teams = [];
+      snapshot.forEach((childSnapshot)=>{
+        teams.push({
+          id:childSnapshot.val().teamId,
+          name:childSnapshot.val().city
+        })
+      })
+      const newFormdata = {...this.state.formdata};
+      const newElement = {...newFormdata['teams']};
+      newElement.config.options = teams;
+      newFormdata['teams'] = newElement;
+      this.setState({
+        formdata: newFormdata
+      })
+    })
+  }
+
   updateForm = (element,content = '') => {
     const newFormdata = {
       ...this.state.formdata
